@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Library of /null</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #0f0;
+      font-family: monospace;
+      padding: 1em;
+      white-space: pre-wrap;
+      overflow-y: scroll;
+    }
+    #output {
+      max-width: 100ch;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>📚 Welcome to /dev/urandom's Library</h1>
+  <div id="output"></div>
+
+  <script>
+    const output = document.getElementById('output');
+    const CHARS = ".";
+
+    function getRandomChar() {
+      return CHARS[Math.floor(Math.random() * CHARS.length)];
+    }
+
+    function generateLine(length = 80) {
+      let line = '';
+      for (let i = 0; i < length; i++) {
+        line += getRandomChar();
+      }
+      return line + '\n';
+    }
+
+    function appendRandomText(lines = 10) {
+      let text = '';
+      for (let i = 0; i < lines; i++) {
+        text += generateLine();
+      }
+      output.textContent += text;
+    }
+
+    // Auto-generate as you scroll
+    window.addEventListener('scroll', () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+        appendRandomText(20);
+      }
+    });
+
+    // Initial dump
+    appendRandomText(50000);
+  </script>
+</body>
+</html>
